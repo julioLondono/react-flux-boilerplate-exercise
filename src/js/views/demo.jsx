@@ -46,6 +46,31 @@ export class Demo extends React.Component {
 				<Link to="/">
 					<button className="btn btn-primary">Back home</button>
 				</Link>
+				<Context.Consumer>
+					{({ store, actions }) => {
+						return (
+							<button
+								className="btn btn-success"
+								onClick={() => actions.resetColors()}>
+								Reset Colors{" "}
+							</button>
+						);
+					}}
+				</Context.Consumer>
+				{/* <Context.Consumer>
+					{({ store, actions }) => {
+						return (
+							<form>
+								<input
+									type="text"
+									className="form-control"
+									placeholder="Enter New Color"
+									onClick={() => actions.newColor()}
+								/>
+							</form>
+						);
+					}}
+				</Context.Consumer> */}
 			</div>
 		);
 	}

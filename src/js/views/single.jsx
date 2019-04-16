@@ -5,18 +5,64 @@ import { Context } from "../store/appContext.jsx";
 
 export class Single extends React.Component {
 	render() {
+		let actualPage = this.props.match.params.theid;
 		return (
 			<div className="jumbotron">
 				<Context.Consumer>
-					{({ store }) => {
+					{({ store, actions }) => {
 						return (
-							<h1 className="display-4">
-								This will show the demo element:{" "}
-								{
-									store.demo[this.props.match.params.theid]
-										.title
-								}
-							</h1>
+							<div>
+								<h1 className="display-4">
+									This will show the demo element:{" "}
+									{
+										store.demo[
+											this.props.match.params.theid
+										].title
+									}
+								</h1>
+								<form>
+									<div className="form-group">
+										<input
+											type="text"
+											className="form-control"
+											id="newTitle"
+											placeholder="Enter New Title"
+										/>
+									</div>
+									<div className="form-group">
+										<input
+											type="text"
+											className="form-control"
+											id="newColor"
+											placeholder="Enter New Color"
+										/>
+									</div>
+								</form>
+								<button
+									className="btn btn-warning btn-lg space"
+									onClick={() =>
+										actions.updateItem(
+											actualPage,
+											document.querySelectorAll(
+												"input"
+											)[0].value,
+											document.querySelectorAll(
+												"input"
+											)[1].value
+										)
+									}>
+									Update
+								</button>
+								<Link to="/demo">
+									<button
+										className="btn btn-danger btn-lg space"
+										onClick={() =>
+											actions.deleteItem(actualPage)
+										}>
+										Delete
+									</button>
+								</Link>
+							</div>
 						);
 					}}
 				</Context.Consumer>
